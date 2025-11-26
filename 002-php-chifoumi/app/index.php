@@ -3,8 +3,16 @@
 $joueur = "Joshua";
 $ordi = 0;
 $choix = "Faites un choix";
+$ordi = ["pierre", "feuille", "ciseaux"];
+$phpChoice = $ordi[array_rand($ordi)];
 
 
+if (!isset($_GET['choix'])) {
+    $phpChoice = 0;
+} else {
+    $tab = ["pierre", "feuille", "ciseaux"];
+    $phpChoice = $tab[array_rand($tab)];
+}
 
 $choixPlayer = $_GET['choix'] ?? "Faites un choix";
 
@@ -17,27 +25,31 @@ else if ($choixPlayer == "feuille") {
 else if ($choixPlayer == "ciseaux") {
     $choix = "Choix : Ciseaux";
 }
-else if ($choixPlayer == "pierre") {
-    $choix = "Faites un choix";
-}
 
 $result = "";
-if ($choice === "pas choisi" || $phpChoice === "pas choisi") {
+if ($choixPlayer === "pas choisi" || $phpChoice === "pas choisi") {
     $result = "Faites un choix pour commencer la partie !";
-} else if ($choice === $phpChoice) {
+} else if ($choixPlayer === $phpChoice) {
     $result = "Egalité";
 } else if (
-    ($choice === 'pierre' && $phpChoice === 'ciseaux') ||
-    ($choice === 'feuille' && $phpChoice === 'pierre') ||
-    ($choice === 'ciseaux' && $phpChoice === 'feuille')
+    ($choixPlayer === 'pierre' && $phpChoice === 'ciseaux') ||
+    ($choixPlayer === 'feuille' && $phpChoice === 'pierre') ||
+    ($choixPlayer === 'ciseaux' && $phpChoice === 'feuille')
 ) {
     $result =  'GG ! Vous avez gagné !';
-} else {
-    $result = "Vous avez perdu !";
+} else if ($choixPlayer === 'pas choisi'){
+    $result = " ";
+}
+else if (
+    ($choixPlayer === "feuille" && $phpChoice === 'ciseaux') ||
+    ($choixPlayer === "pierre" && $phpChoice === 'feuille') ||
+    ($choixPlayer === "ciseaux" && $phpChoice === 'pierre')
+) {
+    $result =  "Vous avez perdu !";
 }
 
 $html = <<<HTML
-<html>
+<html lang="fr">
 <head>
 <title>Index</title>
 </head>
@@ -53,7 +65,7 @@ $html = <<<HTML
 </section>
 </div>
 <section class='resultat'>
-<p>Resultat</p>
+<p>$result</p>
 </section>
 <section class='boutons'>
 <div></div>
