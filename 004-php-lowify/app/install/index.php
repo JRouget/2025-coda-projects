@@ -21,6 +21,8 @@ if ("1" === $doInstall) {
         $resultsHtml .= "<tr><td class='{$class}'>{$step}</td><td class='{$class}'>{$result}</td></tr>";
     }
 
+
+
     $content = <<<HTML
     <div class="container mt-5">
         <h1>Installation de Lowify</h1>
